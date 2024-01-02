@@ -1,0 +1,15 @@
+{
+  "name": "learning_rabbitmq",
+  "version": "1.0.0",
+  "description": "- for management use usermame `guest` password `guest`",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.10.3"
+  }
+}
