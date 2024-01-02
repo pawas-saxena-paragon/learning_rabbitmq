@@ -4,12 +4,15 @@
   "description": "- for management use usermame `guest` password `guest`",
   "main": "index.js",
   "scripts": {
+    "basic:produce": "node src/basic/producer",
+    "basic:consume": "node src/basic/consumer",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "amqplib": "^0.10.3"
+    "amqplib": "^0.10.3",
+    "dotenv": "^16.3.1"
   }
 }
