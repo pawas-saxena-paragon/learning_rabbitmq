@@ -1,14 +1,13 @@
-const amqplib = require("amqplib");
+const { getConnection, LETTERBOX_QUEUE } = require("../utils/connection");
 
 const produce = async () => {
   try {
-    const queueName = "letterbox";
-    const conn = await amqplib.connect("amqp://guest:guest@localhost:5672");
+    const conn = await getConnection();
     const channel = await conn.createChannel();
-    await channel.assertQueue(queueName);
+    await channel.assertQueue(LETTERBOX_QUEUE);
 
     await channel.sendToQueue(
-      queueName,
+      LETTERBOX_QUEUE,
       Buffer.from("alan turing was a smart guy")
     );
 
