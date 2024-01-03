@@ -6,6 +6,8 @@
   "scripts": {
     "basic:produce": "node src/basic/producer",
     "basic:consume": "node src/basic/consumer",
+    "broadcast:produce": "node src/pubSub/producer",
+    "broadcast:consume": "node src/pubSub/consumer",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
