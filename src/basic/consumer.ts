@@ -1,20 +1,27 @@
-import { getConnection, LETTERBOX_QUEUE } from "../utils/connection";
+import amqplib from "amqplib";
 
-const consumer = async () => {
-  try {
-    const conn = await getConnection();
-    const channel = await conn.createChannel();
-    await channel.assertQueue(LETTERBOX_QUEUE);
+import {
+  composeConnection,
+  handleMessage,
+  LETTERBOX_QUEUE,
+} from "../utils/connection";
 
-    const result = await channel.consume(LETTERBOX_QUEUE, (msg) => {
-      console.log("MSG", msg?.content.toString());
-      channel.ack(msg);
-    });
+(async () => {
+  const consumer = await composeConnection(
+    async (_conn: amqplib.Connection, channel: amqplib.Channel) => {
+      try {
+        await channel.assertQueue(LETTERBOX_QUEUE);
+        await channel.consume(LETTERBOX_QUEUE, handleMessage(channel));
+      } catch (err) {
+        console.log("Err:", err);
+      }
+    },
+    false
+  );
 
-    // not closing the connection
-  } catch (err) {
-    console.log("Err:", err);
-  }
-};
+  consumer();
+})();
 
-consumer();
+// (async () => {
+
+// })();

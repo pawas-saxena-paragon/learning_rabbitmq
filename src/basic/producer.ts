@@ -1,21 +1,23 @@
-import { getConnection, LETTERBOX_QUEUE } from "../utils/connection";
+import amqplib from "amqplib";
 
-const produce = async () => {
-  try {
-    const conn = await getConnection();
-    const channel = await conn.createChannel();
-    await channel.assertQueue(LETTERBOX_QUEUE);
+import { composeConnection, LETTERBOX_QUEUE } from "../utils/connection";
 
-    await channel.sendToQueue(
-      LETTERBOX_QUEUE,
-      Buffer.from("alan turing was a smart guy")
-    );
+(async () => {
+  const produce = await composeConnection(
+    async (_conn: amqplib.Connection, channel: amqplib.Channel) => {
+      try {
+        await channel.assertQueue(LETTERBOX_QUEUE);
 
-    await channel.close();
-    await conn.close();
-  } catch (err) {
-    console.log("Err:", err);
-  }
-};
+        await channel.sendToQueue(
+          LETTERBOX_QUEUE,
+          Buffer.from("alan turing was a smart guy")
+        );
+      } catch (err) {
+        console.log("Producer Err:", err);
+      }
+    },
+    true
+  );
 
-produce();
+  produce();
+})();
