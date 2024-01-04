@@ -8,6 +8,9 @@
     "basic:consume": "node src/basic/consumer",
     "broadcast:produce": "node src/pubSub/producer",
     "broadcast:consume": "node src/pubSub/consumer",
+    "directroute:consume:analytics": "node src/directRouting/analyticsConsumer",
+    "directroute:consume:payments": "node src/directRouting/paymentsConsumer",
+    "directroute:produce": "node src/directRouting/producer",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
