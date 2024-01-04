@@ -10,7 +10,7 @@ const consumer = async () => {
       exclusive: true,
     });
 
-    await channel.bindQueue(randomQueueName, PUB_SUB_EXCHANGE);
+    await channel.bindQueue(randomQueueName, PUB_SUB_EXCHANGE, "");
 
     const result = await channel.consume(randomQueueName, (msg) => {
       console.log("MSG", msg?.content.toString());

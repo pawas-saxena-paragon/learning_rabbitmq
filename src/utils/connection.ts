@@ -10,7 +10,7 @@ export const BOTH_ROUTING_KEY = "both";
 export const ANALYTICS_ONLY_KEY = "analyticsonly";
 export const PAYMENTS_ONLY_KEY = "paymentsonly";
 
-export const getConnection = async () => {
+export const getConnection = async (): Promise<amqplib.Connection> => {
   try {
     const conn = await amqplib.connect(
       `amqp://${process.env.RMQ_USER_NAME}:${process.env.RMQ_PASS}@${process.env.RMQ_HOST}:${process.env.RMQ_PORT}`
@@ -21,8 +21,11 @@ export const getConnection = async () => {
   }
 };
 
-export const composeConnection = async (fn, closeConnection) => {
-  let conn;
+export const composeConnection = async (
+  fn: (conn: amqplib.Connection, ...args: any[]) => void,
+  closeConnection: boolean
+) => {
+  let conn: amqplib.Connection;
   try {
     conn = await amqplib.connect(
       `amqp://${process.env.RMQ_USER_NAME}:${process.env.RMQ_PASS}@${process.env.RMQ_HOST}:${process.env.RMQ_PORT}`
@@ -31,7 +34,7 @@ export const composeConnection = async (fn, closeConnection) => {
     console.log("Connection Err:", err);
   }
 
-  return async (...args) => {
+  return async (...args: any[]) => {
     try {
       await fn(conn, ...args);
       if (closeConnection) {
