@@ -1,16 +1,13 @@
-const { getConnection, LETTERBOX_QUEUE } = require("../utils/connection");
+import { getConnection, PUB_SUB_EXCHANGE } from "../utils/connection";
 
 const produce = async () => {
   try {
     const conn = await getConnection();
     const channel = await conn.createChannel();
-    await channel.assertQueue(LETTERBOX_QUEUE);
 
-    await channel.sendToQueue(
-      LETTERBOX_QUEUE,
-      Buffer.from("alan turing was a smart guy")
-    );
+    await channel.assertExchange(PUB_SUB_EXCHANGE, "fanout");
 
+    channel.publish(PUB_SUB_EXCHANGE, "", Buffer.from("Alan makes bad jokes"));
     await channel.close();
     await conn.close();
   } catch (err) {

@@ -1,14 +1,16 @@
-require("dotenv").config();
-const amqplib = require("amqplib");
+import amqplib from "amqplib";
+import { config } from "dotenv";
 
-const LETTERBOX_QUEUE = "letterbox";
-const PUB_SUB_EXCHANGE = "pubSub";
-const ROUTING_EXCHANGE = "routing";
-const BOTH_ROUTING_KEY = "both";
-const ANALYTICS_ONLY_KEY = "analyticsonly";
-const PAYMENTS_ONLY_KEY = "paymentsonly";
+config();
 
-const getConnection = async () => {
+export const LETTERBOX_QUEUE = "letterbox";
+export const PUB_SUB_EXCHANGE = "pubSub";
+export const ROUTING_EXCHANGE = "routing";
+export const BOTH_ROUTING_KEY = "both";
+export const ANALYTICS_ONLY_KEY = "analyticsonly";
+export const PAYMENTS_ONLY_KEY = "paymentsonly";
+
+export const getConnection = async () => {
   try {
     const conn = await amqplib.connect(
       `amqp://${process.env.RMQ_USER_NAME}:${process.env.RMQ_PASS}@${process.env.RMQ_HOST}:${process.env.RMQ_PORT}`
@@ -19,7 +21,7 @@ const getConnection = async () => {
   }
 };
 
-const composeConnection = async (fn, closeConnection) => {
+export const composeConnection = async (fn, closeConnection) => {
   let conn;
   try {
     conn = await amqplib.connect(
@@ -39,15 +41,4 @@ const composeConnection = async (fn, closeConnection) => {
       console.log("Exception at outerlevel", err);
     }
   };
-};
-
-module.exports = {
-  getConnection,
-  LETTERBOX_QUEUE,
-  PUB_SUB_EXCHANGE,
-  composeConnection,
-  ROUTING_EXCHANGE,
-  BOTH_ROUTING_KEY,
-  ANALYTICS_ONLY_KEY,
-  PAYMENTS_ONLY_KEY
 };

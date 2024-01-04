@@ -1,4 +1,4 @@
-const { getConnection, LETTERBOX_QUEUE } = require("../utils/connection");
+import { getConnection, LETTERBOX_QUEUE } from "../utils/connection";
 
 const consumer = async () => {
   try {

@@ -1,4 +1,4 @@
-const { getConnection, PUB_SUB_EXCHANGE } = require("../utils/connection");
+import { getConnection, PUB_SUB_EXCHANGE } from "../utils/connection";
 
 const consumer = async () => {
   try {

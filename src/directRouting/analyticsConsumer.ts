@@ -1,9 +1,9 @@
-const {
+import {
   getConnection,
   ROUTING_EXCHANGE,
   BOTH_ROUTING_KEY,
   ANALYTICS_ONLY_KEY,
-} = require("../utils/connection");
+} from "../utils/connection";
 
 const consumer = async () => {
   const conn = await getConnection();
