@@ -8,8 +8,7 @@
     "basic:consume": "ts-node src/basic/consumer",
     "broadcast:produce": "ts-node src/pubSub/producer",
     "broadcast:consume": "ts-node src/pubSub/consumer",
-    "directroute:consume:analytics": "ts-node src/directRouting/analyticsConsumer",
-    "directroute:consume:payments": "ts-node src/directRouting/paymentsConsumer",
+    "directroute:consume": "ts-node src/directRouting/consumer",
     "directroute:produce": "ts-node src/directRouting/producer",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
