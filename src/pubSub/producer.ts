@@ -1,18 +1,24 @@
-import { getConnection, PUB_SUB_EXCHANGE } from "../utils/connection";
+import amqplib from "amqplib";
 
-const produce = async () => {
-  try {
-    const conn = await getConnection();
-    const channel = await conn.createChannel();
+import { composeConnection, PUB_SUB_EXCHANGE } from "../utils/connection";
 
-    await channel.assertExchange(PUB_SUB_EXCHANGE, "fanout");
+(async () => {
+  const produce = await composeConnection(
+    async (_conn: amqplib.Connection, channel: amqplib.Channel) => {
+      try {
+        await channel.assertExchange(PUB_SUB_EXCHANGE, "fanout");
 
-    channel.publish(PUB_SUB_EXCHANGE, "", Buffer.from("Alan makes bad jokes"));
-    await channel.close();
-    await conn.close();
-  } catch (err) {
-    console.log("Err:", err);
-  }
-};
+        channel.publish(
+          PUB_SUB_EXCHANGE,
+          "",
+          Buffer.from("Alan makes bad jokes")
+        );
+      } catch (err) {
+        console.log("Err:", err);
+      }
+    },
+    true
+  );
 
-produce();
+  produce();
+})();
