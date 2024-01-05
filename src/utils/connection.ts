@@ -9,6 +9,13 @@ export const ROUTING_EXCHANGE = "routing";
 export const BOTH_ROUTING_KEY = "both";
 export const ANALYTICS_ONLY_KEY = "analyticsonly";
 export const PAYMENTS_ONLY_KEY = "paymentsonly";
+export const TOPIC_EXCHANGE = "topicexchange";
+
+export enum EXCHANGE_TYPE {
+  DIRECT = "direct",
+  TOPIC = "topic",
+  FANOUT = 'fanout'
+}
 
 export const getConnection = async (): Promise<amqplib.Connection> => {
   try {
@@ -53,7 +60,10 @@ export const composeConnection = async (
   };
 };
 
-export const handleMessage = (channel: amqplib.Channel, prefix: string = '') => {
+export const handleMessage = (
+  channel: amqplib.Channel,
+  prefix: string = ""
+) => {
   return (msg: amqplib.ConsumeMessage) => {
     console.log(prefix, msg?.content.toString());
     channel.ack(msg);

@@ -10,6 +10,8 @@
     "broadcast:consume": "ts-node src/pubSub/consumer",
     "directroute:consume": "ts-node src/directRouting/consumer",
     "directroute:produce": "ts-node src/directRouting/producer",
+    "topic:route:consume": "ts-node src/topicRouting/consumer",
+    "topic:route:produce": "ts-node src/topicRouting/producer",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

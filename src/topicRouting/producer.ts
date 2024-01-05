@@ -4,6 +4,7 @@ import {
   getConnection,
   ROUTING_EXCHANGE,
   composeConnection,
+  TOPIC_EXCHANGE,
   EXCHANGE_TYPE,
 } from "../utils/connection";
 
@@ -16,13 +17,9 @@ import {
       }
 
       try {
-        await channel.assertExchange(ROUTING_EXCHANGE, EXCHANGE_TYPE.DIRECT);
+        await channel.assertExchange(TOPIC_EXCHANGE, EXCHANGE_TYPE.TOPIC);
         const message = "this message needs to be routed";
-        channel.publish(
-          ROUTING_EXCHANGE,
-          customRoutingKey,
-          Buffer.from(message)
-        );
+        channel.publish(TOPIC_EXCHANGE, customRoutingKey, Buffer.from(message));
         console.log("message sent");
       } catch (err) {
         console.log("Err:", err);
