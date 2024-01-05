@@ -4,19 +4,28 @@
   "description": "- for management use usermame `guest` password `guest`",
   "main": "index.js",
   "scripts": {
-    "basic:produce": "node src/basic/producer",
-    "basic:consume": "node src/basic/consumer",
-    "broadcast:produce": "node src/pubSub/producer",
-    "broadcast:consume": "node src/pubSub/consumer",
-    "directroute:consume:analytics": "node src/directRouting/analyticsConsumer",
-    "directroute:consume:payments": "node src/directRouting/paymentsConsumer",
-    "directroute:produce": "node src/directRouting/producer",
+    "basic:produce": "ts-node src/basic/producer",
+    "basic:consume": "ts-node src/basic/consumer",
+    "broadcast:produce": "ts-node src/pubSub/producer",
+    "broadcast:consume": "ts-node src/pubSub/consumer",
+    "directroute:consume": "ts-node src/directRouting/consumer",
+    "directroute:produce": "ts-node src/directRouting/producer",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.20",
+    "@babel/preset-env": "^7.22.20",
+    "@types/jest": "^29.5.5",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/amqplib": "^0.10.4",
     "amqplib": "^0.10.3",
     "dotenv": "^16.3.1"
   }
