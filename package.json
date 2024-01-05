@@ -12,6 +12,8 @@
     "directroute:produce": "ts-node src/directRouting/producer",
     "topic:route:consume": "ts-node src/topicRouting/consumer",
     "topic:route:produce": "ts-node src/topicRouting/producer",
+    "client:start": "ts-node src/requestReply/client",
+    "server:start":"ts-node src/requestReply/server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
@@ -29,6 +31,7 @@
   "dependencies": {
     "@types/amqplib": "^0.10.4",
     "amqplib": "^0.10.3",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "uuid": "^9.0.1"
   }
 }
