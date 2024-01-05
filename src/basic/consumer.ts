@@ -1,4 +1,4 @@
-import amqplib from "amqplib";  
+import amqplib from "amqplib";
 
 import {
   composeConnection,
@@ -21,7 +21,3 @@ import {
 
   consumer();
 })();
-
-// (async () => {
-
-// })();
