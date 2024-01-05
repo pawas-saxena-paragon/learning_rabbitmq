@@ -2,6 +2,7 @@ import amqplib from "amqplib";
 
 import {
   composeConnection,
+  EXCHANGE_TYPE,
   handleMessage,
   PUB_SUB_EXCHANGE,
 } from "../utils/connection";
@@ -10,7 +11,7 @@ import {
   const consumer = await composeConnection(
     async (_conn: amqplib.Connection, channel: amqplib.Channel) => {
       try {
-        await channel.assertExchange(PUB_SUB_EXCHANGE, "fanout");
+        await channel.assertExchange(PUB_SUB_EXCHANGE, EXCHANGE_TYPE.FANOUT);
         const { queue: randomQueueName } = await channel.assertQueue("", {
           exclusive: true,
         });
